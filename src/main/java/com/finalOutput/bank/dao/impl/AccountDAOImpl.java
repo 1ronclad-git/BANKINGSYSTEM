@@ -7,8 +7,8 @@ import java.util.List;
 
 public class AccountDAOImpl implements AccountDAO {
     private final static String SQL_INSERT = "INSERT INTO accounts(first_name, last_name, email) VALUES(?, ?, ?)";
-    private final static String SQL_INSERT = "";
-    private final static String SQL_INSERT = "";
+//    private final static String SQL_INSERT = "";
+//    private final static String SQL_INSERT = "";
 
     @Override
     public boolean createAccount(Account account) {

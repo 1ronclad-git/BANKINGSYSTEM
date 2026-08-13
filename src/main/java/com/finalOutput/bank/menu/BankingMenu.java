@@ -15,13 +15,14 @@ public class BankingMenu {
             String choice = scanner.nextLine().trim();
 
             switch (choice){
-                case "1" -> createAccount();
-                case "2" -> createAccount();
-                case "3" -> createAccount();
-                case "4" -> createAccount();
-                case "5" -> createAccount();
-                case "6" -> createAccount();
-                case "7" -> createAccount();
+//                case "1" -> createAccount();
+                case "1" -> System.out.println("CREATE");
+                case "2" -> System.out.println("BALANCE");
+                case "3" -> System.out.println("LIST");
+                case "4" -> System.out.println("DEPOSIT");
+                case "5" -> System.out.println("WITHDRAW");
+                case "6" -> System.out.println("TRANSFER");
+                case "7" -> System.out.println("HISTORY");
                 case "0" -> {
                     running = false;
                     System.out.println("Thank you for using Banking Management System. Goodbye!");
