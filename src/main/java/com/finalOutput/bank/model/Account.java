@@ -5,26 +5,24 @@ import java.time.LocalDateTime;
 
 public class Account {
     private long accountId;
+    private String accountNumber;
     private String accountName;
     private BigDecimal balance;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
-//    -------------------------------------------------------
-//    CONSTRUCTOR
-//    -------------------------------------------------------
+    /*-----------------------------
+    CONSTRUCTOR
+    -----------------------------*/
 
-    public Account() {}
-
-    public Account(long accountId, String accountName, BigDecimal balance) {
-        this.accountId = accountId;
+    public Account(String accountNumber, String accountName, BigDecimal balance) {
+        this.accountNumber = accountNumber;
         this.accountName = accountName;
         this.balance = balance;
     }
 
-//    -------------------------------------------------------
-//    GETTER AND SETTER
-//    -------------------------------------------------------
+    /*-----------------------------
+    GETTER AND SETTERS
+    -----------------------------*/
 
     public long getAccountId() {
         return accountId;
@@ -32,6 +30,14 @@ public class Account {
 
     public void setAccountId(long accountId) {
         this.accountId = accountId;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public String getAccountName() {
@@ -57,15 +63,4 @@ public class Account {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
-
-
-

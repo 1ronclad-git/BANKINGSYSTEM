@@ -1,16 +1,16 @@
 package com.finalOutput.bank.app;
 
-import com.finalOutput.bank.menu.BankingMenu;
+import com.finalOutput.bank.menu.BankMenu;
 
 public class Main {
     static void main(String[] args) {
+        BankMenu bankMenu = new BankMenu();
+
         try{
-            BankingMenu bankingMenu = new BankingMenu();
-            bankingMenu.start();
-        } catch(Exception e){
-            System.out.println("[FATAL] " + e.getMessage());
+            bankMenu.start();
+        }catch(Exception e){
+            System.out.println("[ERROR]" + e.getMessage());
             System.exit(1);
         }
-
     }
 }

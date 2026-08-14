@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface AccountDAO {
     boolean createAccount(Account account);
-    boolean Account(Account account);
-    List<Account> listAccounts();
+    List<Account> getAllAccounts();
 }
