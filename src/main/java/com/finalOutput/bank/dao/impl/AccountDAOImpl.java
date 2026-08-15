@@ -14,7 +14,7 @@ public class AccountDAOImpl implements AccountDAO {
     private final static String GET_ALL_ACCOUNT = "SELECT account_number, account_name, balance FROM accounts ORDER BY created_at ASC";
 
     @Override
-    public boolean createAccount(Account account) {
+    public void createAccount(Account account) {
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ACCOUNT);){
 
@@ -28,7 +28,6 @@ public class AccountDAOImpl implements AccountDAO {
             System.out.println("[ERROR]" + e.getMessage());
         }
 
-        return false;
     }
 
     @Override

@@ -1,27 +1,34 @@
 package com.finalOutput.bank.menu;
 
+import com.finalOutput.bank.dao.AccountDAO;
+import com.finalOutput.bank.dao.impl.AccountDAOImpl;
+import com.finalOutput.bank.service.AccountService;
+
 import java.util.Scanner;
 
 public class BankMenu {
-    Scanner scanner = new Scanner(System.in);
 
-    public void start(){
+    private final AccountService accountService;
+    private final Scanner scanner;
+
+    public BankMenu() {
+        scanner = new Scanner(System.in);
+
+        AccountDAO accountDAO = new AccountDAOImpl();
+        accountService = new AccountService(accountDAO, scanner);
+    }
+
+    public void start() {
         boolean running = true;
 
-        while(running){
+        while (running) {
             printMenu();
 
             System.out.print("Enter your choice: ");
             String input = scanner.nextLine().trim();
 
-            switch (input){
-                case "1" -> System.out.println("to Create Account");
-                case "2" -> System.out.println("to See Account Balance");
-                case "3" -> System.out.println("to Display List of Accounts");
-                case "4" -> System.out.println("to Deposit on Account");
-                case "5" -> System.out.println("to Withdraw on Account");
-                case "6" -> System.out.println("to Transfer onto another Account");
-                case "7" -> System.out.println("to see Transaction History");
+            switch (input) {
+                case "1" -> accountService.createAccount();
                 case "0" -> {
                     System.out.println("Thank you for using our Bank. Goodbye!");
                     running = false;
@@ -32,9 +39,9 @@ public class BankMenu {
         scanner.close();
     }
 
-    private void printMenu(){
-        System.out.println("====================================");
-        System.out.println("BANKING APPLICATION");
+    private void printMenu() {
+        System.out.println("\n====================================");
+        System.out.println("         BANKING APPLICATION");
         System.out.println("====================================");
         System.out.println("1. Create Account");
         System.out.println("2. Balance Inquiry");
