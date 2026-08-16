@@ -4,6 +4,7 @@ import com.finalOutput.bank.config.DBConnection;
 import com.finalOutput.bank.dao.AccountDAO;
 import com.finalOutput.bank.model.Account;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class AccountDAOImpl implements AccountDAO {
     private final static String SQL_INSERT = "INSERT INTO accounts(account_number, account_name, balance) VALUES (?, ?, ?)";
     private final static String SQL_FIND_ALL = "SELECT * FROM accounts ORDER BY created_at ASC";
     private final static String SQL_FIND_BY_NUMBER = "SELECT * FROM accounts WHERE account_number = ?";
+    private final static String UPDATE_BALANCE =  "UPDATE accounts SET balance = ? WHERE account_number = ?";
 
     @Override
     public void createAccount(Account account) {
@@ -50,6 +52,28 @@ public class AccountDAOImpl implements AccountDAO {
         }
 
         return accounts;
+    }
+
+    @Override
+    public void updateBalance(String accountNumber, BigDecimal balance) throws SQLException {
+        try(Connection conn = DBConnection.getConnection()) {
+            updateBalance(conn, accountNumber, balance);
+        } catch(SQLException e){
+            System.out.println("[Failed to update balance]" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateBalance(Connection conn, String accountNumber, BigDecimal balance) throws SQLException {
+        try(PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_BALANCE)){
+            preparedStatement.setBigDecimal(1, balance);
+            preparedStatement.setString(2, accountNumber);
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if(rowsUpdated == 0){
+                System.out.println("Balance update for account " + accountNumber + " failed");
+            }
+        }
     }
 
     @Override
