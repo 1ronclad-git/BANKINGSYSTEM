@@ -29,6 +29,8 @@ public class BankMenu {
 
             switch (input) {
                 case "1" -> accountService.createAccount();
+                case "2" -> accountService.balanceInquiry();
+                case "3" -> accountService.listAccounts();
                 case "0" -> {
                     System.out.println("Thank you for using our Bank. Goodbye!");
                     running = false;

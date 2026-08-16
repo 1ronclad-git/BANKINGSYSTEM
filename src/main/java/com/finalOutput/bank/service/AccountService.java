@@ -5,6 +5,8 @@ import com.finalOutput.bank.model.Account;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AccountService {
@@ -20,7 +22,7 @@ public class AccountService {
     public void createAccount() {
         System.out.println("\n===========CREATE ACCOUNT===========");
 
-        System.out.print("Enter account holder number: ");
+        System.out.print("Enter account holder name: ");
         String name = scanner.nextLine().trim();
 
         if (name.isEmpty()) {
@@ -45,8 +47,44 @@ public class AccountService {
         }
     }
 
+    public void balanceInquiry() {
+        System.out.println("\n==========BALANCE INQUIRY===========");
+
+        System.out.print("Enter account holder number: ");
+        String accountNumber = scanner.nextLine().trim();
+
+        try {
+            Account account = findAccount(accountNumber);
+            System.out.println("\n [SUCCESS] Balance Inquiry");
+            printAccountSummary(account);
+        } catch (SQLException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
+    }
+
+    public void listAccounts() {
+        System.out.println("\n=============LIST ACCOUNTS===========");
+
+        try {
+            List<Account> accounts = accountDAO.getAllAccounts();
+            if (accounts.isEmpty()) System.out.println("[ERROR] No accounts found.");
+            printAccountsTable(accounts);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //    ------------------------------------
+//    PUBLIC HELPER
 //    ------------------------------------
-//    HELPERS
+    public Account findAccount(String accountNumber) throws SQLException {
+        Optional<Account> option = accountDAO.getByAccountNumber(accountNumber);
+        return option.orElse(null);
+    }
+
+//    ------------------------------------
+//    PRIVATE HELPERS
 //    ------------------------------------
 
     private BigDecimal promptAmount(String prompt) {
@@ -85,6 +123,29 @@ public class AccountService {
         if (account.getCreatedAt() != null) {
             System.out.println("Created at: " + account.getCreatedAt());
         }
+    }
+
+//    ------------------------------------
+//    DISPLAY ALL ACCOUNTS TABLE
+//    ------------------------------------
+
+    private void printAccountsTable(List<Account> accounts) {
+        String line = "+----+-----------------------+-------------------------+---------------+";
+        System.out.println(line);
+        System.out.printf("| %-2s | %-21s | %-23s | %-13s |%n",
+                "No", "Account Number", "Account Name", "Balance (PHP)");
+        System.out.println(line);
+
+        int i = 1;
+        for (Account account : accounts) {
+            System.out.printf("| %-2s | %-21s | %-23s | %-13s |%n",
+                    i++,
+                    account.getAccountNumber(),
+                    account.getAccountName(),
+                    account.getBalance());
+        }
+        System.out.println(line);
+        System.out.println("  Total accounts: " + accounts.size());
     }
 
 }
