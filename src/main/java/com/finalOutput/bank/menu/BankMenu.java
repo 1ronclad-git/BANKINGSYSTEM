@@ -1,21 +1,29 @@
 package com.finalOutput.bank.menu;
 
 import com.finalOutput.bank.dao.AccountDAO;
+import com.finalOutput.bank.dao.TransactionDAO;
 import com.finalOutput.bank.dao.impl.AccountDAOImpl;
+import com.finalOutput.bank.dao.impl.TransactionDAOImpl;
 import com.finalOutput.bank.service.AccountService;
+import com.finalOutput.bank.service.TransactionService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BankMenu {
 
     private final AccountService accountService;
+    private final TransactionService transactionService;
     private final Scanner scanner;
 
     public BankMenu() {
         scanner = new Scanner(System.in);
 
         AccountDAO accountDAO = new AccountDAOImpl();
+        TransactionDAO transactionDAO = new TransactionDAOImpl();
+
         accountService = new AccountService(accountDAO, scanner);
+        transactionService = new TransactionService(accountDAO, transactionDAO, accountService, scanner);
     }
 
     public void start() {
@@ -31,7 +39,10 @@ public class BankMenu {
                 case "1" -> accountService.createAccount();
                 case "2" -> accountService.balanceInquiry();
                 case "3" -> accountService.listAccounts();
-
+                case "4" -> transactionService.deposit();
+                case "5" -> transactionService.withdraw();
+                case "6" -> transactionService.transfer();
+                case "7" -> transactionService.transactionHistory();
                 case "0" -> {
                     System.out.println("Thank you for using our Bank. Goodbye!");
                     running = false;

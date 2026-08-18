@@ -20,7 +20,7 @@ public class AccountService {
     }
 
     public void createAccount() {
-        System.out.println("\n===========CREATE ACCOUNT===========");
+        System.out.println("\n-------- CREATE ACCOUNT --------");
 
         System.out.print("Enter account holder name: ");
         String name = scanner.nextLine().trim();
@@ -40,7 +40,7 @@ public class AccountService {
 
         try {
             accountDAO.createAccount(account);
-            System.out.println("\n [SUCCESS] Account created successfully!");
+            System.out.println("\n[SUCCESS] Account created successfully!");
             printAccountSummary(account);
         } catch (SQLException e) {
             System.out.println("[ERROR] " + e.getMessage());
@@ -48,14 +48,14 @@ public class AccountService {
     }
 
     public void balanceInquiry() {
-        System.out.println("\n==========BALANCE INQUIRY===========");
+        System.out.println("\n-------- BALANCE INQUIRY --------");
 
         System.out.print("Enter account holder number: ");
         String accountNumber = scanner.nextLine().trim();
 
         try {
             Account account = findAccount(accountNumber);
-            System.out.println("\n [SUCCESS] Balance Inquiry");
+            System.out.println("\n[SUCCESS] Balance Inquiry");
             printAccountSummary(account);
         } catch (SQLException e) {
             System.out.println("[ERROR] " + e.getMessage());
@@ -63,7 +63,7 @@ public class AccountService {
     }
 
     public void listAccounts() {
-        System.out.println("\n=============LIST ACCOUNTS===========");
+        System.out.println("\n-------- LIST ACCOUNTS --------");
 
         try {
             List<Account> accounts = accountDAO.getAllAccounts();

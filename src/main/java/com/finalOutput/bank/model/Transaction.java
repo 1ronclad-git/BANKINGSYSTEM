@@ -10,7 +10,7 @@ public class Transaction {
     private TransactionType transactionType;
     private BigDecimal amount;
     private BigDecimal balanceAfter;
-    private String referenceAccount;
+    private String remarks;
     private LocalDateTime createdAt;
 
     public Transaction() {
@@ -20,13 +20,13 @@ public class Transaction {
     //    CONSTRUCTOR
     //    ------------------------------
 
-    public Transaction(String referenceNumber, String accountNumber, TransactionType transactionType, BigDecimal amount, BigDecimal balanceAfter, String referenceAccount) {
+    public Transaction(String referenceNumber, String accountNumber, TransactionType transactionType, BigDecimal amount, BigDecimal balanceAfter, String remarks) {
         this.referenceNumber = referenceNumber;
         this.accountNumber = accountNumber;
         this.transactionType = transactionType;
         this.amount = amount;
         this.balanceAfter = balanceAfter;
-        this.referenceAccount = referenceAccount;
+        this.remarks = remarks;
     }
 
     //    ------------------------------
@@ -82,12 +82,12 @@ public class Transaction {
         this.balanceAfter = balanceAfter;
     }
 
-    public String getReferenceAccount() {
-        return referenceAccount;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setReferenceAccount(String referenceAccount) {
-        this.referenceAccount = referenceAccount;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -97,4 +97,6 @@ public class Transaction {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
 }
+
